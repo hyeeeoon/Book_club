@@ -25,11 +25,11 @@
       "node_modules/**/*"
     ],
     "mac": {
-      "target": ["dmg"],
-      "icon": "icon.png" 
+      "target": ["dmg", "zip"],
+      "category": "public.app-category.education"
     },
     "win": {
-      "target": ["portable"],
+      "target": ["portable"], 
       "icon": "icon.png"
     }
   },

@@ -4,31 +4,33 @@ const path = require('path');
 
 let backendProcess;
 
-// 개발 모드인지 확인 (ELECTRON_START_URL 환경변수가 있으면 개발 모드)
-const isDev = process.env.ELECTRON_START_URL || !app.isPackaged;
+// 앱이 패키징(배포용으로 빌드) 되었는지 확인
+const isDev = !app.isPackaged;
 
 function createWindow() {
-  // 1. 서버(Backend) 실행
-  // 배포 후에는 상대 경로가 달라질 수 있으므로 path.join을 권장합니다.
-  const backendPath = path.join(__dirname, 'backend/server.js');
+  // 1. 백엔드 실행 경로 설정
+  // 배포 후에는 process.resourcesPath를 참조해야 에러가 나지 않습니다.
+  const backendPath = app.isPackaged 
+    ? path.join(process.resourcesPath, 'backend/server.js') 
+    : path.join(__dirname, 'backend/server.js');
+
   backendProcess = exec(`node "${backendPath}"`);
 
   const win = new BrowserWindow({
     width: 1280,
     height: 800,
-    title: "너와 보는 바다가 더 예뻐서 - 독서모임 관리",
+    title: "너와 보는 바다가 더 예뻐서",
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true
     }
   });
 
-  // 2. 개발 중에는 Vite 서버, 배포 후에는 빌드된 index.html 로드
+  // 2. 개발 중엔 서버 주소, 배포 후엔 빌드된 파일 로드
   if (isDev) {
     win.loadURL('http://localhost:5173');
-    // 개발 중에는 개발자 도구(F12)를 자동으로 엽니다 (선택 사항)
-    // win.webContents.openDevTools();
   } else {
+    // 패키징 후 앱의 루트를 가리키는 경로 설정
     win.loadFile(path.join(__dirname, 'frontend/dist/index.html'));
   }
 
@@ -41,7 +43,7 @@ function createWindow() {
 
 app.whenReady().then(createWindow);
 
-// 모든 창이 닫히면 앱 종료
+// 맥(macOS) 특성을 고려한 앱 종료 로직
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
