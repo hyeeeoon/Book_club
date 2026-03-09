@@ -11,10 +11,15 @@ function createWindow() {
   // 1. 백엔드 실행 경로 설정
   // 배포 후에는 process.resourcesPath를 참조해야 에러가 나지 않습니다.
   const backendPath = app.isPackaged 
-    ? path.join(process.resourcesPath, 'backend/server.js') 
+    ? path.join(process.resourcesPath, 'app.asar.unpacked/backend/server.js') 
     : path.join(__dirname, 'backend/server.js');
 
-  backendProcess = exec(`node "${backendPath}"`);
+  // 백엔드 실행 시 에러 핸들링을 추가하면 디버깅이 쉽습니다.
+  backendProcess = exec(`node "${backendPath}"`, (error) => {
+    if (error) {
+      console.error(`백엔드 실행 에러: ${error}`);
+    }
+  });
 
   const win = new BrowserWindow({
     width: 1280,

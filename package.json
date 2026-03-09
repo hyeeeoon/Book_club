@@ -15,18 +15,23 @@
   "build": {
     "appId": "com.bookclub.manager",
     "productName": "너와보는바다",
+    "asar": true,
+    "asarUnpack": [
+      "backend/**/*"
+    ],
     "directories": {
       "output": "dist_electron"
     },
     "files": [
       "main.js",
       "backend/**/*",
-      "frontend/dist/**/*",
-      "node_modules/**/*"
+      "frontend/dist/**/*"
     ],
     "mac": {
       "target": ["dmg", "zip"],
-      "category": "public.app-category.education"
+      "category": "public.app-category.education",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
     },
     "win": {
       "target": ["portable"], 
