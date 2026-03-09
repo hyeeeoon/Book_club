@@ -1,0 +1,54 @@
+// 1. 멤버 정보 (서비스 이용자)
+Table members {
+  id int [pk, increment, note: '멤버 고유 ID']
+  name varchar(50) [not null, note: '멤버 이름']
+}
+
+// 2. 도서 정보 (전체 도서 DB)
+Table books {
+  id int [pk, increment, note: '도서 고유 ID']
+  title varchar(255) [not null, note: '도서명']
+  author varchar(100) [note: '저자']
+  total_pages int [note: '전체 페이지 수']
+}
+
+// 3. 현재 독서 진행 현황 (멤버별 실시간 데이터)
+Table reading_progress {
+  id int [pk, increment]
+  member_id int [unique, note: '어떤 멤버인지']
+  book_id int [note: '어떤 책을 읽는 중인지']
+  current_page int [default: 0, note: '현재 읽은 페이지']
+  updated_at timestamp [default: `now()`]
+}
+
+// 4. 일일 출석 기록 (날짜별 O/X/W 기록)
+Table attendance {
+  id int [pk, increment]
+  date date [not null, note: '기록 날짜']
+  member_id int [note: '누가 기록했는지']
+  status enum('O', 'X', 'W') [default: 'X', note: 'O:독서, X:안함, W:완독']
+  
+  Note: '한 멤버가 하루에 한 번만 기록할 수 있도록 설정됨'
+}
+
+// 5. 완독 기록 히스토리 (과거 완료 데이터 영구 보관)
+Table completed_books {
+  id int [pk, increment]
+  member_id int [note: '누가 완독했는지']
+  book_title varchar(255) [note: '완독한 책 제목']
+  completed_date date [note: '완독 날짜']
+}
+
+// --- 관계 설정 (Relationships) ---
+
+// 멤버와 현재 독서 상태 (1:1 관계)
+Ref: members.id - reading_progress.member_id 
+
+// 독서 상태와 도서 정보 (Many:1 관계)
+Ref: books.id < reading_progress.book_id
+
+// 멤버와 출석 기록 (1:Many 관계)
+Ref: members.id < attendance.member_id
+
+// 멤버와 완독 히스토리 (1:Many 관계)
+Ref: members.id < completed_books.member_id

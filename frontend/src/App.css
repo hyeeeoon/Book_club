@@ -1,0 +1,75 @@
+/* 전역 초기화: 브라우저 기본 여백 제거 및 박스 사이즈 고정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 1. 최상위 컨테이너: 자식들을 가로축 중앙으로 모음 */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* 모든 자식(Navbar, Content)을 가로 중앙으로 */
+  min-height: 100vh;
+  width: 100%;            /* 전체 너비 확보 */
+  background-color: #ffffff;
+  padding-bottom: 50px;   /* 하단 여백 */
+}
+
+/* 2. 네비게이션 컨테이너: Navbar 자체를 중앙에 배치 */
+.nav-container {
+  display: flex;
+  justify-content: center; 
+  width: 100%;
+  max-width: 1200px;      /* 콘텐츠 영역과 동일한 너비 제한 */
+  margin-top: 40px;
+  margin-bottom: 50px;
+  gap: 20px;
+}
+
+/* 3. 메인 콘텐츠 영역: MainPage가 놓이는 곳 */
+.content-area {
+  display: flex;
+  justify-content: center; /* 내부의 dashboard-content를 중앙으로 */
+  width: 100%;
+  max-width: 1200px;       /* 너무 넓어지지 않게 고정 */
+  padding: 0 20px;
+}
+
+/* 네비게이션 탭 스타일 (이미지 디자인 반영) */
+.nav-tab {
+  padding: 12px 35px;
+  border-radius: 40px;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #A2D9A1; /* 연초록 */
+  color: #333;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-tab.active {
+  background-color: #749F73; /* 진초록 */
+  color: white;
+}
+
+.nav-tab.inactive {
+  opacity: 0.8;
+}
+
+.nav-tab:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.95);
+}
+
+/* 랭킹/그래프 등 준비 중인 페이지 안내 문구용 */
+.placeholder-text {
+  font-size: 20px;
+  color: #666;
+  text-align: center;
+  margin-top: 100px;
+}

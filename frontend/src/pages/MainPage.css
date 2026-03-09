@@ -1,0 +1,145 @@
+/* src/pages/MainPage.css */
+.dashboard-content {
+  display: grid;
+  /* 변경: 1fr 대신 두 영역의 너비를 가변적으로 잡되 중앙에 배치 */
+  grid-template-columns: auto auto; 
+  /* 핵심: 그리드 전체 항목을 가로 중앙으로 모음 */
+  justify-content: center; 
+  gap: 50px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto; 
+  align-items: start;
+}
+
+/* 왼쪽 출석부 테이블 영역 */
+.attendance-section {
+  max-height: 600px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.attendance-table {
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.attendance-table th {
+  background-color: #C2C2C2;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+}
+
+.attendance-table td {
+  padding: 6px 12px;
+  border: 1px solid #eee;
+  font-size: 14px;
+}
+
+.date-cell {
+  background-color: #A2D9A1;
+  font-weight: bold;
+}
+
+/* 오른쪽 섹션 */
+.right-section {
+  display: flex;
+  flex-direction: column;
+  width: 550px;
+}
+
+.edit-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.edit-btn {
+  background-color: #A2D9A1;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* 오늘 체크 (O, X) */
+.today-status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.member-names-row, .status-ox-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.status-ox-row {
+  font-size: 24px;
+  font-weight: 900;
+}
+
+/* 도서 목록 테이블 */
+.book-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #000000; /* 파란색 테두리 */
+}
+
+.book-table th {
+  background-color: #C2C2C2;
+  border: 1px solid #000000;
+  padding: 5px;
+}
+
+.book-table td {
+  border: 1px solid #000000;
+  padding: 8px;
+  font-size: 14px;
+}
+
+/* 체크 영역 전용 표 스타일 */
+.today-status-container {
+  width: 100%;
+  margin-bottom: 30px;
+  overflow-x: auto; /* 멤버가 많아질 경우 대비 */
+}
+
+.status-check-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* 모든 칸의 너비를 동일하게 고정 */
+}
+
+.status-name-th {
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px 5px;
+  color: #555;
+  border-bottom: 1px solid #eee;
+}
+
+.status-icon-td {
+  font-size: 26px;
+  font-weight: 900;
+  padding: 15px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none; /* 텍스트 드래그 방지 */
+}
+
+/* 강조 효과: O일 때와 X일 때 색상 차별화 */
+.status-icon-td.is-active {
+  color: #749F73; /* 진초록 */
+  background-color: #f0fdf4;
+}
+
+.status-icon-td.is-inactive {
+  color: #ccc; /* 흐린 회색 */
+}

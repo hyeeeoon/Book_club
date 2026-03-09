@@ -1,0 +1,42 @@
+{
+  "name": "book-club-manager",
+  "version": "1.0.0",
+  "description": "독서모임 출석 및 데이터 관리 프로그램",
+  "author": "nagi",
+  "main": "main.js",
+  "scripts": {
+    "server": "cd backend && node server.js",
+    "client": "cd frontend && npm run dev",
+    "electron": "electron .",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"wait-on http://localhost:5173 && npm run electron\"",
+    "build-frontend": "cd frontend && npm run build",
+    "dist": "npm run build-frontend && electron-builder"
+  },
+  "build": {
+    "appId": "com.bookclub.manager",
+    "productName": "너와보는바다",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "files": [
+      "main.js",
+      "backend/**/*",
+      "frontend/dist/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "target": ["dmg"],
+      "icon": "icon.png" 
+    },
+    "win": {
+      "target": ["portable"],
+      "icon": "icon.png"
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^30.5.1",
+    "electron-builder": "^24.13.3",
+    "wait-on": "^7.2.0"
+  }
+}

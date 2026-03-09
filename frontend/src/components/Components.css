@@ -1,0 +1,113 @@
+/* 전체 레이아웃 중앙 정렬 유지 */
+.dashboard-content {
+  display: flex; /* grid 대신 flex가 정렬 잡기 더 쉬울 수 있습니다 */
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.attendance-section {
+  flex: 0 0 auto; /* 왼쪽 테이블 크기 고정 */
+}
+
+.right-section {
+  flex: 1; /* 오른쪽이 남은 공간 차지 */
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 헤더 및 버튼 */
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.date-label { font-weight: bold; color: #749F73; }
+
+/* O/X 버튼 스타일 */
+.ox-row {
+  display: flex;
+  justify-content: space-around;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.ox-btn:hover { color: #749F73; transform: scale(1.1); }
+
+/* 테이블 공통 */
+.attendance-table, .book-table { border-collapse: collapse; width: 100%; }
+.attendance-table th, .attendance-table td, .book-table th, .book-table td {
+  border: 1px solid #ddd; padding: 10px; text-align: center;
+}
+.selected-row { background-color: #f0fdf4; border: 2px solid #749F73; }
+
+/* 체크 영역 전용 표 스타일 */
+.today-status-container {
+  width: 100%;
+  margin-bottom: 30px;
+  overflow-x: auto; /* 멤버가 많아질 경우 대비 */
+}
+
+.status-check-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* 모든 칸의 너비를 동일하게 고정 */
+}
+
+.status-name-th {
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px 5px;
+  color: #555;
+  border-bottom: 1px solid #eee;
+}
+
+.status-icon-td {
+  font-size: 26px;
+  font-weight: 900;
+  padding: 15px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none; /* 텍스트 드래그 방지 */
+}
+
+/* 강조 효과: O일 때와 X일 때 색상 차별화 */
+.status-icon-td.is-active {
+  color: #749F73; /* 진초록 */
+  background-color: #f0fdf4;
+}
+
+.status-icon-td.is-inactive {
+  color: #ccc; /* 흐린 회색 */
+}
+
+.book-title-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #eee;
+  padding: 5px 2px;
+  background-color: transparent;
+  color: #749F73; /* 테마색 */
+  font-weight: 600;
+  outline: none;
+  transition: border-bottom 0.2s;
+}
+
+.book-title-input:focus {
+  border-bottom: 2px solid #A2D9A1;
+  background-color: #fcfdfc;
+}
+
+.book-title-input::placeholder {
+  color: #ccc;
+  font-weight: 400;
+  font-size: 12px;
+}
